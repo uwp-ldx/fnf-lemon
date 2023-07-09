@@ -1,5 +1,7 @@
 package;
 
+// Yo 看啥呢（
+// checker by 铁锅 >:))))
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -20,6 +22,8 @@ import lime.app.Application;
 import Achievements;
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
+import flixel.FlxState;
+import flixel.addons.display.FlxBackdrop;
 
 using StringTools;
 
@@ -35,10 +39,7 @@ class MainMenuState extends MusicBeatState
 	var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
-		#if MODS_ALLOWED 'mods', #end
-		#if ACHIEVEMENTS_ALLOWED 'awards', #end
 		'credits',
-		#if !switch 'donate', #end
 		'options'
 	];
 
@@ -46,6 +47,10 @@ class MainMenuState extends MusicBeatState
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
+	var Color_Block:FlxBackdrop;
+	var checker:FlxBackdrop; 
+	var checker2:FlxBackdrop;
+	//var logoBl:FlxSprite;
 
 	override function create()
 	{
@@ -90,6 +95,38 @@ class MainMenuState extends MusicBeatState
 		add(camFollow);
 		add(camFollowPos);
 
+		Color_Block = new FlxBackdrop(Paths.image('idk'), 0.2, 0.2, true, true);
+		Color_Block.velocity.set(130, 130);
+		Color_Block.updateHitbox();
+		Color_Block.scrollFactor.set(0, 0);
+		Color_Block.scale.set(0.1, 0.1);
+		Color_Block.alpha = 0.35;
+		Color_Block.screenCenter(X);
+		Color_Block.color = 0xFFFFFFFF;
+		add(Color_Block);
+
+		checker = new FlxBackdrop(Paths.image('bar_top'), Y, 10, -3, 1000);
+		checker.y = -205;
+		checker.scrollFactor.set();
+		add(checker);
+
+		checker2 = new FlxBackdrop(Paths.image('bar_bot'), Y, 10, -3, 1000);
+		checker2.y = 635;
+		checker2.flipY = true;
+		checker2.scrollFactor.set();
+		add(checker2);
+
+/*		logoBl = new FlxSprite(670, 100);
+		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
+		logoBl.antialiasing = ClientPrefs.globalAntialiasing;
+		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, true);
+		logoBl.animation.play('bump');
+		logoBl.scrollFactor.set(0, 0);
+		logoBl.scale.x = 0.7;
+		logoBl.scale.y = 0.7;
+		logoBl.updateHitbox();
+		add(logoBl);*/
+
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
 		magenta.scrollFactor.set(0, yScroll);
 		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
@@ -113,15 +150,14 @@ class MainMenuState extends MusicBeatState
 		for (i in 0...optionShit.length)
 		{
 			var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
-			var menuItem:FlxSprite = new FlxSprite(0, (i * 140)  + offset);
-			menuItem.scale.x = scale;
-			menuItem.scale.y = scale;
+			var menuItem:FlxSprite = new FlxSprite(100, (i * 140)  + offset);
+			menuItem.scale.x = scale - 0.3;
+			menuItem.scale.y = scale - 0.3;
 			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optionShit[i]);
 			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
-			menuItem.screenCenter(X);
 			menuItems.add(menuItem);
 			var scr:Float = (optionShit.length - 4) * 0.135;
 			if(optionShit.length < 6) scr = 0;
@@ -164,6 +200,7 @@ class MainMenuState extends MusicBeatState
 		#end
 
 		super.create();
+
 	}
 
 	#if ACHIEVEMENTS_ALLOWED
@@ -179,6 +216,10 @@ class MainMenuState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+
+		checker.x += .5*(elapsed/(1/120));
+		checker2.x -= .5*(elapsed/(1/120));
+
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
@@ -211,8 +252,7 @@ class MainMenuState extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
-				if (optionShit[curSelected] == 'donate')
-				{
+				if (optionShit[curSelected] == 'donate') {
 					CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
 				}
 				else
@@ -226,20 +266,15 @@ class MainMenuState extends MusicBeatState
 					{
 						if (curSelected != spr.ID)
 						{
-							FlxTween.tween(spr, {alpha: 0}, 0.4, {
-								ease: FlxEase.quadOut,
-								onComplete: function(twn:FlxTween)
-								{
-									spr.kill();
-								}
-							});
+							FlxTween.tween(spr, {x: -500}, 2, {ease: FlxEase.backInOut, type: ONESHOT, onComplete: function(twn:FlxTween) {
+								spr.kill();
+							}});
 						}
 						else
 						{
 							FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker)
 							{
 								var daChoice:String = optionShit[curSelected];
-
 								switch (daChoice)
 								{
 									case 'story_mode':
@@ -248,7 +283,7 @@ class MainMenuState extends MusicBeatState
 										MusicBeatState.switchState(new FreeplayState());
 									#if MODS_ALLOWED
 									case 'mods':
-										MusicBeatState.switchState(new ModsMenuState());
+										MusicBeatState.switchState(new ModsMenuState()); 
 									#end
 									case 'awards':
 										MusicBeatState.switchState(new AchievementsMenuState());
@@ -275,7 +310,6 @@ class MainMenuState extends MusicBeatState
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{
-			spr.screenCenter(X);
 		});
 	}
 
