@@ -96,7 +96,7 @@ class MainMenuState extends MusicBeatState
 		add(camFollowPos);
 
 		Color_Block = new FlxBackdrop(Paths.image('idk'), 0.2, 0.2, true, true);
-		Color_Block.velocity.set(130, 130);
+		Color_Block.velocity.set(130, 0);
 		Color_Block.updateHitbox();
 		Color_Block.scrollFactor.set(0, 0);
 		Color_Block.scale.set(0.1, 0.1);
@@ -150,7 +150,7 @@ class MainMenuState extends MusicBeatState
 		for (i in 0...optionShit.length)
 		{
 			var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
-			var menuItem:FlxSprite = new FlxSprite(100, (i * 140)  + offset);
+			var menuItem:FlxSprite = new FlxSprite(100, (i * 120)  + offset);
 			menuItem.scale.x = scale - 0.3;
 			menuItem.scale.y = scale - 0.3;
 			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optionShit[i]);
@@ -219,9 +219,7 @@ class MainMenuState extends MusicBeatState
 		super.beatHit();
 
 		if(logoBl != null)
-		{
 			logoBl.animation.play('bump', true);
-		}
 	}
 	override function update(elapsed:Float)
 	{
