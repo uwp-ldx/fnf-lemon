@@ -50,7 +50,7 @@ class MainMenuState extends MusicBeatState
 	var Color_Block:FlxBackdrop;
 	var checker:FlxBackdrop; 
 	var checker2:FlxBackdrop;
-	//var logoBl:FlxSprite;
+	var logoBl:FlxSprite;
 
 	override function create()
 	{
@@ -116,16 +116,16 @@ class MainMenuState extends MusicBeatState
 		checker2.scrollFactor.set();
 		add(checker2);
 
-/*		logoBl = new FlxSprite(670, 100);
+		logoBl = new FlxSprite(670, 100);
 		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
 		logoBl.antialiasing = ClientPrefs.globalAntialiasing;
-		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, true);
+		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, false);
 		logoBl.animation.play('bump');
 		logoBl.scrollFactor.set(0, 0);
 		logoBl.scale.x = 0.7;
 		logoBl.scale.y = 0.7;
 		logoBl.updateHitbox();
-		add(logoBl);*/
+		add(logoBl);
 
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
 		magenta.scrollFactor.set(0, yScroll);
@@ -214,6 +214,15 @@ class MainMenuState extends MusicBeatState
 
 	var selectedSomethin:Bool = false;
 
+	override function beatHit()
+	{
+		super.beatHit();
+
+		if(logoBl != null)
+		{
+			logoBl.animation.play('bump', true);
+		}
+	}
 	override function update(elapsed:Float)
 	{
 
