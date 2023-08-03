@@ -1,6 +1,5 @@
 package;
 
-// Yo 看啥呢（
 // checker by 铁锅 >:))))
 #if desktop
 import Discord.DiscordClient;
@@ -43,6 +42,14 @@ class MainMenuState extends MusicBeatState
 		'options'
 	];
 
+	var CharactersShit:Array<String> = [
+		'dd dog',
+		'bitch lime',
+		'xh'
+	];
+
+	var nub = :int = FlxG.random.int(1, 3);
+
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
@@ -50,7 +57,7 @@ class MainMenuState extends MusicBeatState
 	var Color_Block:FlxBackdrop;
 	var checker:FlxBackdrop; 
 	var checker2:FlxBackdrop;
-	var logoBl:FlxSprite;
+	var idkbro:FlxSprite;
 
 	override function create()
 	{
@@ -95,7 +102,7 @@ class MainMenuState extends MusicBeatState
 		add(camFollow);
 		add(camFollowPos);
 
-		Color_Block = new FlxBackdrop(Paths.image('idk'), 0.2, 0.2, true, true);
+/*		Color_Block = new FlxBackdrop(Paths.image('idk'), 0.2, 0.2, true, true);
 		Color_Block.velocity.set(130, 0);
 		Color_Block.updateHitbox();
 		Color_Block.scrollFactor.set(0, 0);
@@ -103,7 +110,7 @@ class MainMenuState extends MusicBeatState
 		Color_Block.alpha = 0.35;
 		Color_Block.screenCenter(X);
 		Color_Block.color = 0xFFFFFFFF;
-		add(Color_Block);
+		add(Color_Block);*/
 
 		checker = new FlxBackdrop(Paths.image('bar_top'), Y, 10, -3, 1000);
 		checker.y = -205;
@@ -116,16 +123,16 @@ class MainMenuState extends MusicBeatState
 		checker2.scrollFactor.set();
 		add(checker2);
 
-		logoBl = new FlxSprite(670, 100);
-		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
-		logoBl.antialiasing = ClientPrefs.globalAntialiasing;
-		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, false);
-		logoBl.animation.play('bump');
-		logoBl.scrollFactor.set(0, 0);
-		logoBl.scale.x = 0.7;
-		logoBl.scale.y = 0.7;
-		logoBl.updateHitbox();
-		add(logoBl);
+		idkbro = new FlxSprite(700);
+		idkbro.frames = Paths.getSparrowAtlas('Characters/' + CharactersShit[nub]);
+		idkbro.antialiasing = ClientPrefs.globalAntialiasing;
+		idkbro.animation.addByPrefix('bump', CharactersShit[nub] + ' i', 24, false);
+		idkbro.animation.play('bump');
+		idkbro.scrollFactor.set(0, 0);
+		idkbro.flipX = true;
+		idkbro.screenCenter(Y);
+		idkbro.updateHitbox();
+		add(idkbro);
 
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
 		magenta.scrollFactor.set(0, yScroll);
@@ -214,13 +221,6 @@ class MainMenuState extends MusicBeatState
 
 	var selectedSomethin:Bool = false;
 
-	override function beatHit()
-	{
-		super.beatHit();
-
-		if(logoBl != null)
-			logoBl.animation.play('bump', true);
-	}
 	override function update(elapsed:Float)
 	{
 
