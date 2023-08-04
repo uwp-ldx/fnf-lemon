@@ -42,6 +42,16 @@ class MainMenuState extends MusicBeatState
 		'options'
 	];
 
+	var nub:Array<String> = [
+		'i',
+		'l',
+		'd',
+		'u',
+		'r'
+	];
+
+	var nub2 = FlxG.random.int(1, 5);
+
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
@@ -106,7 +116,7 @@ class MainMenuState extends MusicBeatState
 		idkbro = new FlxSprite(650);
 		idkbro.frames = Paths.getSparrowAtlas('Characters/xh');
 		idkbro.antialiasing = ClientPrefs.globalAntialiasing;
-		idkbro.animation.addByPrefix('bump', 'xh i', 24, false);
+		idkbro.animation.addByPrefix('bump', 'xh ' + nub[nub2], 24, false);
 		idkbro.animation.play('bump');
 		idkbro.scrollFactor.set(0, 0);
 		idkbro.flipX = true;
