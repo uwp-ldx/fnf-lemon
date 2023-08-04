@@ -48,7 +48,7 @@ class MainMenuState extends MusicBeatState
 		'xh'
 	];
 
-	var nub:int = FlxG.random.int(1, 3);
+	var nub = FlxG.random.int(1, 3);
 
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
