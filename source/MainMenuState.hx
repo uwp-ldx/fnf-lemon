@@ -42,19 +42,10 @@ class MainMenuState extends MusicBeatState
 		'options'
 	];
 
-	var CharactersShit:Array<String> = [
-		'dd dog',
-		'bitch lime',
-		'xh'
-	];
-
-	var nub = FlxG.random.int(1, 3);
-
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
-	var Color_Block:FlxBackdrop;
 	var checker:FlxBackdrop; 
 	var checker2:FlxBackdrop;
 	var idkbro:FlxSprite;
@@ -113,18 +104,18 @@ class MainMenuState extends MusicBeatState
 		add(Color_Block);*/
 
 		idkbro = new FlxSprite(650);
-		idkbro.frames = Paths.getSparrowAtlas('Characters/' + CharactersShit[nub]);
+		idkbro.frames = Paths.getSparrowAtlas('Characters/xh');
 		idkbro.antialiasing = ClientPrefs.globalAntialiasing;
-		idkbro.animation.addByPrefix('bump', CharactersShit[nub] + ' i', 24, false);
+		idkbro.animation.addByPrefix('bump', 'xh i', 24, false);
 		idkbro.animation.play('bump');
 		idkbro.scrollFactor.set(0, 0);
 		idkbro.flipX = true;
+		idkbro.scale.y = 0.8;
+		idkbro.scale.x = 0.8;
 		idkbro.screenCenter(Y);
-		idkbro.y = idkbro.y - 40;
+		idkbro.y = idkbro.y - 20;
 		idkbro.updateHitbox();
 		add(idkbro);
-
-		if (nub == 1 ) {idkbro.scale.x = 1.2; idkbro.scale.y = 1.2;} if (nub == 2 ) {idkbro.y = idkbro.y - 60;} if (nub == 3) {idkbro.scale.x = 0.8; idkbro.scale.y = 0.8;}
 
 		checker = new FlxBackdrop(Paths.image('bar_top'), Y, 10, -3, 1000);
 		checker.y = -205;
