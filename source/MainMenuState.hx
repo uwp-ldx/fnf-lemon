@@ -112,6 +112,20 @@ class MainMenuState extends MusicBeatState
 		Color_Block.color = 0xFFFFFFFF;
 		add(Color_Block);*/
 
+		idkbro = new FlxSprite(650);
+		idkbro.frames = Paths.getSparrowAtlas('Characters/' + CharactersShit[nub]);
+		idkbro.antialiasing = ClientPrefs.globalAntialiasing;
+		idkbro.animation.addByPrefix('bump', CharactersShit[nub] + ' i', 24, false);
+		idkbro.animation.play('bump');
+		idkbro.scrollFactor.set(0, 0);
+		idkbro.flipX = true;
+		idkbro.screenCenter(Y);
+		idkbro.y = idkbro.y - 40;
+		idkbro.updateHitbox();
+		add(idkbro);
+
+		if (nub == 1 ) {idkbro.scale.x = 1.2; idkbro.scale.y = 1.2;} if (nub == 2 ) {idkbro.y = idkbro.y - 60;} if (nub == 3) {idkbro.scale.x = 0.8; idkbro.scale.y = 0.8;}
+
 		checker = new FlxBackdrop(Paths.image('bar_top'), Y, 10, -3, 1000);
 		checker.y = -205;
 		checker.scrollFactor.set();
@@ -122,17 +136,6 @@ class MainMenuState extends MusicBeatState
 		checker2.flipY = true;
 		checker2.scrollFactor.set();
 		add(checker2);
-
-		idkbro = new FlxSprite(700);
-		idkbro.frames = Paths.getSparrowAtlas('Characters/' + CharactersShit[nub]);
-		idkbro.antialiasing = ClientPrefs.globalAntialiasing;
-		idkbro.animation.addByPrefix('bump', CharactersShit[nub] + ' i', 24, false);
-		idkbro.animation.play('bump');
-		idkbro.scrollFactor.set(0, 0);
-		idkbro.flipX = true;
-		idkbro.screenCenter(Y);
-		idkbro.updateHitbox();
-		add(idkbro);
 
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
 		magenta.scrollFactor.set(0, yScroll);
@@ -220,6 +223,14 @@ class MainMenuState extends MusicBeatState
 	#end
 
 	var selectedSomethin:Bool = false;
+
+	override function beatHit()
+	{
+		super.beatHit();
+
+		if(idkbro != null)
+			idkbro.animation.play('bump', true);
+	}
 
 	override function update(elapsed:Float)
 	{
