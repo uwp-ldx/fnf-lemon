@@ -116,13 +116,14 @@ class MainMenuState extends MusicBeatState
 		idkbro = new FlxSprite(620);
 		idkbro.frames = Paths.getSparrowAtlas('Characters/xh');
 		idkbro.antialiasing = ClientPrefs.globalAntialiasing;
-		idkbro.animation.addByPrefix('bump', 'xh ' + nub[nub2], 24, true);
+		idkbro.animation.addByPrefix('bump', 'xh ' + nub[nub2], 24, false);
 		idkbro.animation.play('bump');
 		idkbro.scrollFactor.set(0, 0);
 		idkbro.flipX = true;
 		idkbro.scale.y = 0.8;
 		idkbro.scale.x = 0.8;
 		idkbro.screenCenter(Y);
+		idkbro.y = idkbro.y +80;
 		idkbro.updateHitbox();
 		add(idkbro);
 
