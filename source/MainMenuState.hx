@@ -113,17 +113,16 @@ class MainMenuState extends MusicBeatState
 		Color_Block.color = 0xFFFFFFFF;
 		add(Color_Block);*/
 
-		idkbro = new FlxSprite(650);
+		idkbro = new FlxSprite(620);
 		idkbro.frames = Paths.getSparrowAtlas('Characters/xh');
 		idkbro.antialiasing = ClientPrefs.globalAntialiasing;
-		idkbro.animation.addByPrefix('bump', 'xh ' + nub[nub2], 24, false);
+		idkbro.animation.addByPrefix('bump', 'xh ' + nub[nub2], 24, true);
 		idkbro.animation.play('bump');
 		idkbro.scrollFactor.set(0, 0);
 		idkbro.flipX = true;
 		idkbro.scale.y = 0.8;
 		idkbro.scale.x = 0.8;
 		idkbro.screenCenter(Y);
-		idkbro.y = idkbro.y - 20;
 		idkbro.updateHitbox();
 		add(idkbro);
 
@@ -161,9 +160,9 @@ class MainMenuState extends MusicBeatState
 		for (i in 0...optionShit.length)
 		{
 			var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
-			var menuItem:FlxSprite = new FlxSprite(100, (i * 120)  + offset);
-			menuItem.scale.x = scale - 0.3;
-			menuItem.scale.y = scale - 0.3;
+			var menuItem:FlxSprite = new FlxSprite(100, (i * 120)  + offset + 30);
+			menuItem.scale.x = scale - 0.2;
+			menuItem.scale.y = scale - 0.2;
 			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optionShit[i]);
 			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
@@ -225,14 +224,11 @@ class MainMenuState extends MusicBeatState
 
 	var selectedSomethin:Bool = false;
 
-	override function beatHit()
+override function beatHit()
 	{
 		super.beatHit();
-
-		if(idkbro != null)
-			idkbro.animation.play('bump', true);
+		idkbro.animation.play('bump');
 	}
-
 	override function update(elapsed:Float)
 	{
 
