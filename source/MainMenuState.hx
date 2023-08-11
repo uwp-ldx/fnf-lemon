@@ -123,7 +123,7 @@ class MainMenuState extends MusicBeatState
 		idkbro.scale.y = 0.8;
 		idkbro.scale.x = 0.8;
 		idkbro.screenCenter(Y);
-		idkbro.y = idkbro.y +130;
+		idkbro.y = idkbro.y +150;
 		idkbro.updateHitbox();
 		add(idkbro);
 
