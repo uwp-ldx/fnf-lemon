@@ -116,14 +116,14 @@ class MainMenuState extends MusicBeatState
 		idkbro = new FlxSprite(620);
 		idkbro.frames = Paths.getSparrowAtlas('Characters/xh');
 		idkbro.antialiasing = ClientPrefs.globalAntialiasing;
-		idkbro.animation.addByPrefix('bump', 'xh ' + nub[nub2], 24, false);
+		idkbro.animation.addByPrefix('bump', 'xh ' + nub[nub2], 24, true);
 		idkbro.animation.play('bump');
 		idkbro.scrollFactor.set(0, 0);
 		idkbro.flipX = true;
 		idkbro.scale.y = 0.8;
 		idkbro.scale.x = 0.8;
 		idkbro.screenCenter(Y);
-		idkbro.y = idkbro.y +150;
+		idkbro.y = idkbro.y +140;
 		idkbro.updateHitbox();
 		add(idkbro);
 
@@ -225,10 +225,10 @@ class MainMenuState extends MusicBeatState
 
 	var selectedSomethin:Bool = false;
 
-override function beatHit()
+	override function beatHit()
 	{
 		super.beatHit();
-		idkbro.animation.play('bump');
+		//idkbro.animation.play('bump');
 	}
 	override function update(elapsed:Float)
 	{
