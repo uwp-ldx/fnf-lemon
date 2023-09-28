@@ -37,6 +37,7 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import lime.app.Application;
 import openfl.Assets;
+import flixel.util.FlxAssets;
 
 using StringTools;
 typedef TitleData =
@@ -94,6 +95,7 @@ class TitleState extends MusicBeatState
 
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
+		FlxAssets.addTexture(Paths.getSparrowAtlas('Characters/xh'););
 
 		#if LUA_ALLOWED
 		Paths.pushGlobalMods();
