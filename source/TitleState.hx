@@ -95,7 +95,7 @@ class TitleState extends MusicBeatState
 
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
-		FlxAssets.addTexture(Paths.getSparrowAtlas('Characters/xh'););
+		FlxAssets.addTexture(Paths.getSparrowAtlas('Characters/xh'));
 
 		#if LUA_ALLOWED
 		Paths.pushGlobalMods();
